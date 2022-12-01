@@ -22,4 +22,6 @@ RUN powershell choco install git.install --params "'/GitAndUnixToolsOnPath'" -y
 
 RUN powershell choco feature enable -n allowGlobalConfirmation
 
+RUN powershell choco install azure-cli -y
+
 CMD [ "pwsh", "-c", "./config.cmd --name $env:RUNNER_NAME --url $env:GITHUB_URL$env:RUNNER_ORG --token $env:RUNNER_TOKEN --labels $env:RUNNER_LABELS --unattended --replace --ephemeral; ./run.cmd"]
