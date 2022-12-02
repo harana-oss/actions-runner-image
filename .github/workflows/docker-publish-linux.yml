@@ -10,7 +10,7 @@ on:
     - cron: '36 9 * * *'
   push:
     branches: [ "master" ]
-    paths-ignore: [ "windows-2019/**", "windows-2022/**" ]
+    paths-ignore: [ "windows/**" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
