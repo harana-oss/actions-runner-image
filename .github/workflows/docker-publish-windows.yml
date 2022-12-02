@@ -9,7 +9,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
@@ -43,7 +42,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - id: image_name
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.repository }}
+
       - name: Build Docker image
         run: |
-          docker build . --pull --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.tag }} .
+          docker build . --pull --tag ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }} .
         working-directory: ${{ matrix.os }}
