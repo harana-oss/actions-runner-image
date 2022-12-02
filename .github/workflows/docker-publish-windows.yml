@@ -49,5 +49,5 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build . --pull --tag ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }} .
+          docker build . --pull --tag ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}
         working-directory: ${{ matrix.os }}
