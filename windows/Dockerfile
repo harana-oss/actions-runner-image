@@ -19,10 +19,10 @@ RUN Invoke-WebRequest -Uri 'https://aka.ms/install-powershell.ps1' -OutFile inst
 
 RUN powershell Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-RUN powershell choco install git.install --params "'/GitAndUnixToolsOnPath'" -y
+RUN powershell choco install git.install --no-progress --params "'/GitAndUnixToolsOnPath'" -y
 
 RUN powershell choco feature enable -n allowGlobalConfirmation
 
-RUN powershell choco install azure-cli -y
+RUN powershell choco install azure-cli  --no-progress -y
 
 CMD [ "pwsh", "-c", "./config.cmd --name $env:RUNNER_NAME --url $env:GITHUB_URL$env:RUNNER_ORG --token $env:RUNNER_TOKEN --labels $env:RUNNER_LABELS --unattended --replace --ephemeral; ./run.cmd"]
