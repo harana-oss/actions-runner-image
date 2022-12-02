@@ -52,3 +52,8 @@ jobs:
         run: |
           docker build . --pull --tag ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }} --build-arg BASE=${{ matrix.base }}
         working-directory: windows
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}
+        working-directory: windows
