@@ -1,0 +1,49 @@
+name: Docker (Windows)
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore: [ "linux/**" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [windows-2019, windows-2022]
+        include:
+        - os: windows-2019
+          file: Dockerfile.windows
+          tag: ltsc2019
+        - os: windows-2022
+          file: Dockerfile.windows
+          tag: ltsc2022
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build . --pull --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.tag }} .
+        working-directory: ${{ matrix.os }}
