@@ -2,8 +2,8 @@ ARG BASE
 FROM mcr.microsoft.com/dotnet/framework/sdk:${BASE}
 
 # latest values from https://github.com/actions/runner/releases for actions-runner-win-x64-N.N.N.zip
-ARG RUNNER_VERSION=2.299.1
-ARG RUNNER_DOWNLOAD_HASH=f7940b16451d6352c38066005f3ee6688b53971fcc20e4726c7907b32bfdf539
+ARG RUNNER_VERSION=2.300.0
+ARG RUNNER_DOWNLOAD_HASH=15119814c27bb0a5fc12138290fe9aa21f5df1910f2f10b06815df4f0e7f2bef
 
 WORKDIR /actions-runner
 
