@@ -21,3 +21,4 @@ It is based on the `mcr.microsoft.com/dotnet/framework/sdk` image. It adds:
 * [GitHub Actions Runner](https://github.com/actions/runner)
 * [Azure CLI](https://community.chocolatey.org/packages/azure-cli)
 * [Git for Windows](https://community.chocolatey.org/packages/git.install)
+* [Visual C++ Tools](https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-build-tools?view=vs-2022#desktop-development-with-c)
