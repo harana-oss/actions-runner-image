@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * 3'
   push:
-    branches: [ "master" ]
+    branches: [ "master", "xamarin" ]
     paths-ignore: [ "linux/**" ]
   pull_request:
     branches: [ "master" ]
@@ -58,4 +58,14 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}
+        working-directory: windows
+
+      - name: Build Xamarin Docker image
+        run: |
+          docker build . -f xamarin.Dockerfile --pull --tag ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}-xamarin --build-arg BASE=${{ matrix.tag }}
+        working-directory: windows
+
+      - name: Push Xamarin Docker image
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}-xamarin
         working-directory: windows
