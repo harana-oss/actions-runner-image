@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * 3'
   push:
-    branches: [ "master", "xamarin" ]
+    branches: [ "master" ]
     paths-ignore: [ "linux/**" ]
   pull_request:
     branches: [ "master" ]
