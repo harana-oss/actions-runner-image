@@ -37,30 +37,24 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - id: image_name
-        name: Make image name lowercase
-        uses: ASzc/change-string-case-action@v5
-        with:
-          string: ${{ github.repository }}
+          password: ${{ secrets.DOCKER_PASSWORD }}}
 
       - name: Build Docker image
         run: |
-          docker build . --pull --tag ${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }} --build-arg BASE=${{ matrix.base }}
+          docker build . --pull --tag haranaoss/actions-runner-image:${{ matrix.tag }} --build-arg BASE=${{ matrix.base }}
         working-directory: windows
 
       - name: Push Docker image
         run: |
-          docker push ${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}
+          docker push haranaoss/actions-runner-image:${{ matrix.tag }}
         working-directory: windows
 
       - name: Build Xamarin Docker image
         run: |
-          docker build . -f xamarin.Dockerfile --pull --tag ${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}-xamarin --build-arg BASE=${{ matrix.tag }}
+          docker build . -f xamarin.Dockerfile --pull --tag haranaoss/actions-runner-image:${{ matrix.tag }}-xamarin --build-arg BASE=${{ matrix.tag }}
         working-directory: windows
 
       - name: Push Xamarin Docker image
         run: |
-          docker push ${{ steps.image_name.outputs.lowercase }}:${{ matrix.tag }}-xamarin
+          docker push haranaoss/actions-runner-image:${{ matrix.tag }}-xamarin
         working-directory: windows
