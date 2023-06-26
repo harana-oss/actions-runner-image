@@ -6,8 +6,6 @@ name: Docker (Linux)
 # documentation.
 
 on:
-  schedule:
-    - cron: '0 9 * * 3'
   push:
     branches: [ "master" ]
     paths-ignore: [ "windows/**" ]
